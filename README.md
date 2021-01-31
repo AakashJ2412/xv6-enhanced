@@ -1,4 +1,6 @@
-# OSN Assignment 5
+# xv6 Enhancements
+
+This project was undertaken as part of our Operating Systems course, in order to gain practical experience regarding the implementation and functioning of schedulers of existing operating systems. In addition to various system check programs and functionalities, I have implemented the first come first serve (FCFS), priority based scheduler (PBS), and multi-level feedback queue(MLFQ) schedulers in addition to the existing round-robin scheduler, and benchmarked the performance.
 
 ## Implementation
 
