@@ -120,6 +120,11 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+int             waitx(int *, int *);
+int             pinfo(void);
+int             set_priority(int, int);
+void            push(struct proc *, int);
+void            pop(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

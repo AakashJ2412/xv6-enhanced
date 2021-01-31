@@ -49,6 +49,18 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  int priority;                // Priority of a process (for PBS)
+  int ctime;                   // Process creation time
+  int etime;                   // Process end time
+  int rtime;                   // Process total time
+  int tot_wtime;               // Process total wait time
+  int rchktime;                // Time when process was made runnable
+  int n_run;                   // Number of times process is picked by scheduler
+  struct proc *next;           // pointer to next element (for MLFQ)
+  int qid;                     // denotes which queue it is in (for MLFQ)
+  int qtime[5];                // total wait time in each queue
+  int qrtime;                  // run time in queue
+            
 };
 
 // Process memory is laid out contiguously, low addresses first:

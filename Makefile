@@ -90,6 +90,18 @@ ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]nopie'),)
 CFLAGS += -fno-pie -nopie
 endif
 
+SCHED_VAR = -D RR
+
+ifeq ($(SCHEDULER) , FCFS)
+SCHED_VAR = -D FCFS
+else ifeq ($(SCHEDULER) , PBS)
+SCHED_VAR = -D PBS
+else ifeq ($(SCHEDULER) , MLFQ)
+SCHED_VAR = -D MLFQ
+endif
+
+CFLAGS += $(SCHED_VAR)
+
 xv6.img: bootblock kernel
 	dd if=/dev/zero of=xv6.img count=10000
 	dd if=bootblock of=xv6.img conv=notrunc
@@ -181,6 +193,11 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
+	_time\
+	_benchmark\
+	_benchmark_og\
+	_setPriority\
+	_ps\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -250,7 +267,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
-	printf.c umalloc.c\
+	printf.c umalloc.c time.c benchmark.c _setPriority.c ps.c _benchmark_og.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 
